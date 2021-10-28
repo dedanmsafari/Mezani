@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { SvgXml } from "react-native-svg";
 import { Card } from "react-native-paper";
-import { Image, View, Text } from "react-native";
+import { Image, Text } from "react-native";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
-
+import { Spacer } from "../../../components/Spacer/spacer.component";
 const Titletext = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
@@ -79,10 +79,12 @@ export const RestaurantInfoCard = ({ Restaurant = {} }) => {
                 Temporarily Closed
               </Text>
             )}
-            <View style={{ paddingLeft: 16 }} />
-            {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
-            <View style={{ paddingLeft: 16 }} />
-            <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
+            <Spacer position="left" size="large">
+              {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+            </Spacer>
+            <Spacer position="left" size="large">
+              <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
+            </Spacer>
           </SectionEnd>
         </Section>
         <Address>{address}</Address>
