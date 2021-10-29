@@ -1,4 +1,4 @@
-import styled, { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components/native";
 import React from "react";
 const positionVariant = {
   top: "marginTop",
