@@ -3,16 +3,14 @@ import React from "react";
 import styled from "styled-components/native";
 import Search from "../../../components/Search/search";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
-import { StatusBar, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import { Spacer } from "../../../components/Spacer/spacer.component";
+import { SafeAreaView } from "../../../utils/safeArea.util.component";
 
 const SearchView = styled.View`
   padding: ${(props) => props.theme.space[3]};
 `;
-const SafeAreaView = styled.SafeAreaView`
-  flex: 1;
-  ${StatusBar.currentHeight && `margin-Top:${StatusBar.currentHeight}px`};
-`;
+
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: { padding: 16 },
 })``;
