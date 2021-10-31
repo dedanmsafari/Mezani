@@ -15,7 +15,7 @@ import open from "../../../../assets/open";
 import { Spacer } from "../../../components/Spacer/spacer.component";
 import { Text } from "../../../components/Text/text.component";
 
-export const RestaurantInfoCard = ({ Restaurant = {} }) => {
+export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
     name = "Vegitel",
     address = "57th Street Avenue",
@@ -24,11 +24,10 @@ export const RestaurantInfoCard = ({ Restaurant = {} }) => {
     isClosedTemporarily = true,
     isOpenNow = true,
     photos = ["https://picsum.photos/200/300"],
-  } = Restaurant;
+  } = restaurant;
 
   const ratingArray = Array.from({ length: Math.floor(rating) });
 
-  console.log(ratingArray);
   return (
     <RestaurantCard>
       <CardCover key={name} source={{ uri: photos[0] }} />
