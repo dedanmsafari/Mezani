@@ -14,7 +14,6 @@ const Search = ({ placeHolder }) => {
   const { search, keyword } = React.useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = React.useState(keyword);
 
-
   return (
     <SearchView>
       <Searchbar
