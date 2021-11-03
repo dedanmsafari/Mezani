@@ -23,6 +23,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     rating = 4,
     isClosedTemporarily = true,
     isOpenNow = true,
+    placeId,
     photos = ["https://picsum.photos/200/300"],
   } = restaurant;
 
@@ -35,8 +36,13 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         <Text variant="label">{name}</Text>
         <Section>
           <Rating>
-            {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+            {ratingArray.map((_, i) => (
+              <SvgXml
+                xml={star}
+                key={`star-${placeId}-${i}`}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
           <SectionEnd>
