@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import styled from "styled-components/native";
 import Search from "../../../components/Search/search";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { Spacer } from "../../../components/Spacer/spacer.component";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 import { LoadingIndicator } from "../../../components/ActivityIndicator/loadingIndicator.component";
@@ -18,7 +18,7 @@ const LoadingContainer = styled.View`
   align-items: center;
 `;
 
-export const RestaurantScreen = () => {
+export const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, loading } = useContext(RestaurantsContext);
   return (
     <>
@@ -32,9 +32,15 @@ export const RestaurantScreen = () => {
           data={restaurants}
           renderItem={({ item }) => {
             return (
-              <Spacer position="bottom" size="large">
-                <RestaurantInfoCard restaurant={item} />
-              </Spacer>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("restaurantDetails", { restaurant: item })
+                }
+              >
+                <Spacer position="bottom" size="large">
+                  <RestaurantInfoCard restaurant={item} />
+                </Spacer>
+              </TouchableOpacity>
             );
           }}
           keyExtractor={(item) => item.name}
