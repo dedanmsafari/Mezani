@@ -10,13 +10,23 @@ const SearchView = styled.View`
   padding-bottom: ${(props) => props.theme.space[2]};
 `;
 
-const Search = ({ placeHolder }) => {
+export const Search = ({
+  placeHolder,
+  isFavouritesToggled,
+  onFavouritesToggled,
+}) => {
   const { search, keyword } = React.useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = React.useState(keyword);
+
+  React.useEffect(() => {
+    setSearchKeyword(keyword);
+  }, [keyword]);
 
   return (
     <SearchView>
       <Searchbar
+        icon={isFavouritesToggled ? "heart" : "heart-outline"}
+        onIconPress={onFavouritesToggled}
         placeholder={placeHolder}
         onSubmitEditing={() => search(searchKeyword)}
         onChangeText={(text) => {
@@ -27,5 +37,3 @@ const Search = ({ placeHolder }) => {
     </SearchView>
   );
 };
-
-export default Search;
