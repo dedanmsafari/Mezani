@@ -34,7 +34,7 @@ export const Address = styled.Text`
 `;
 
 export const CardCover = styled(Card.Cover)`
-  padding: ${(props) => props.theme.space[3]};
+  padding: ${(props) => props.theme.space[2]};
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
