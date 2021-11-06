@@ -19,6 +19,8 @@ font-size: ${theme.fontSizes.body};
 
 const error = (theme) => `
 color: ${theme.colors.text.error};
+font-size: ${theme.fontSizes.heading};
+font-weight: ${theme.fontWeights.bold};
 `;
 
 const caption = (theme) => `
