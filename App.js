@@ -1,6 +1,8 @@
+// import { initializeApp } from "firebase/app";
+// import * as firebase from "firebase/app";
+import * as firebase from "firebase";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import React from "react";
-
 import { ThemeProvider } from "styled-components";
 import {
   useFonts as useOswald,
@@ -12,8 +14,23 @@ import { theme } from "./src/infrastructure/theme";
 
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 import { Navigation } from "./src/infrastructure/navigation";
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyALgkdZ_lFsTAz8TF4GGteZB92Ya59KkXE",
+  authDomain: "mezani-64ebd.firebaseapp.com",
+  projectId: "mezani-64ebd",
+  storageBucket: "mezani-64ebd.appspot.com",
+  messagingSenderId: "658798873742",
+  appId: "1:658798873742:web:c010d444fbcf3a94a04ddf",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+// initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -30,13 +47,15 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <Navigation />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <Navigation />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
