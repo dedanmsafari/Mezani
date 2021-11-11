@@ -1,17 +1,16 @@
 import camelize from "camelize";
-import { locations } from "./location.mock";
-
+import { host, isMock } from "../../utils/env";
 export const locationRequest = (searchTerm) => {
-  return new Promise((resolve, reject) => {
-    const locationData = locations[searchTerm];
-    if (!locationData) {
-      reject("Not Found");
+  //http urls dont work on android must use live to work..might show blank screen on android and local firebase dont run on https hence use live
+  return fetch(`${host}/geocode?city=${searchTerm}&mock=${isMock}`).then(
+    (response) => {
+      return response.json();
     }
-    resolve(locationData);
-  });
+  );
 };
 
 export const locationTransform = (result) => {
+  console.log(result);
   const formattedResponse = camelize(result);
   const { geometry = {} } = formattedResponse.results[0];
   const { lng, lat } = geometry.location;
