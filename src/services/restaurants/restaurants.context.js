@@ -18,12 +18,10 @@ export const RestaurantsContextProvider = ({ children }) => {
     try {
       setLoading(true);
       setRestaurants([]);
-      await setTimeout(async () => {
-        const response = await restaurantsRequest(loc);
-        const result = restaurantsTransform(response);
-        setRestaurants(result);
-        setLoading(false);
-      }, 1000);
+      const response = await restaurantsRequest(loc);
+      const result = restaurantsTransform(response);
+      setRestaurants(result);
+      setLoading(false);
     } catch (err) {
       setError(err);
       setLoading(false);
