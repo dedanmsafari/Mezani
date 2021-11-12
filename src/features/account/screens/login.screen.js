@@ -12,7 +12,7 @@ import { Spacer } from "../../../components/Spacer/spacer.component";
 import { Text } from "../../../components/Text/text.component";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 import { LoadingIndicator } from "../../../components/ActivityIndicator/loadingIndicator.component";
-import { LoadingContainer } from "../components/account.styles";
+// import { LoadingContainer } from "../components/account.styles";
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
