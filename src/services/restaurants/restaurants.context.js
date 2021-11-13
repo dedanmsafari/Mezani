@@ -20,6 +20,7 @@ export const RestaurantsContextProvider = ({ children }) => {
       setRestaurants([]);
       const response = await restaurantsRequest(loc);
       const result = restaurantsTransform(response);
+      setError(null);
       setRestaurants(result);
       setLoading(false);
     } catch (err) {
