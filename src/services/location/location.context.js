@@ -14,9 +14,9 @@ export const LocationContextProvider = ({ children }) => {
     try {
       const data = await locationRequest(searchKeyword.toLowerCase());
       const locationData = locationTransform(data);
+      setError(null);
       setLoading(false);
       setLocation(locationData);
-      console.log(locationData);
     } catch (err) {
       setLoading(false);
       setError(err);
