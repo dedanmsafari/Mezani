@@ -26,25 +26,45 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
+  const saveCart = async (rst, crt, uid) => {
+    try {
+      await AsyncStorage.setItem(
+        `@cart-${uid}`,
+        JSON.stringify({ restaurant: rst, cart: crt })
+      );
+    } catch (error) {
+      console.log("error Storing", error);
+    }
+  };
+
+  const loadCart = async (uid) => {
+    try {
+      const value = await AsyncStorage.getItem(`@cart-${uid}`);
+      if (value !== null) {
+        const { restaurant: rst, cart: crt } = JSON.parse(value);
+        setRestaurant(rst);
+        setCart(crt);
+      }
+    } catch (error) {
+      console.log("error loading", error);
+    }
+  };
   const clear = () => {
     setCart([]);
     setRestaurant(null);
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const cart = localStorage.getItem(`cart_${user.id}`);
-  //     if (cart) {
-  //       setCart(JSON.parse(cart));
-  //     }
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user && user.uid) {
+      loadCart(user.uid);
+    }
+  }, [user]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     localStorage.setItem(`cart_${user.id}`, JSON.stringify(cart));
-  //   }
-  // }, [cart, user]);
+  useEffect(() => {
+    if (user && user.uid) {
+      saveCart(restaurant, cart, user.uid);
+    }
+  }, [restaurant, cart, user]);
 
   return (
     <CartContext.Provider
