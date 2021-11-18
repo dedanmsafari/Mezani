@@ -11,7 +11,7 @@ import { FavouritesContextProvider } from "../../services/favourites/favourites.
 import { RestaurantsContextProvider } from "../../services/restaurants/restaurants.context";
 import { LocationContextProvider } from "../../services/location/location.context";
 import { CartContextProvider } from "../../services/cart/cart.context";
-
+import { colors } from "../theme/colors";
 import { SettingsNavigator } from "./settings.navigator";
 import { CheckoutNavigator } from "./checkout.navigator";
 
@@ -30,8 +30,8 @@ const createScreenOptions = ({ route }) => {
     tabBarIcon: ({ color, size }) => (
       <Ionicons name={iconName} size={size} color={color} />
     ),
-    tabBarActiveTintColor: "tomato",
-    tabBarInactiveTintColor: "gray",
+    tabBarActiveTintColor: colors.brand.primary,
+    tabBarInactiveTintColor: colors.brand.muted,
     headerShown: false,
   };
 };
