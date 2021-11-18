@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ScrollView } from "react-native";
 import { List } from "react-native-paper";
 import { Text } from "../../../components/Text/text.component";
@@ -11,14 +11,42 @@ import {
   NameInput,
   PayButton,
   ClearButton,
+  PaymentProcessing,
 } from "../components/checkout.styles";
+import { payRequest } from "../../../services/checkout/checkout.services";
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card.component";
 
 import { Spacer } from "../../../components/Spacer/spacer.component";
 
-export const CheckoutScreen = () => {
+export const CheckoutScreen = ({ navigation }) => {
   const { cart, restaurant, sum, clearCart } = useContext(CartContext);
   const [name, setName] = useState("");
+  const [card, setCard] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onPay = () => {
+    setIsLoading(true);
+    if (!card || !card.id) {
+      setIsLoading(false);
+      navigation.navigate("checkoutError", {
+        error: "Please enter a valid card",
+      });
+      return;
+    }
+
+    payRequest(card.id, sum, name)
+      .then((result) => {
+        setIsLoading(false);
+        clearCart();
+        navigation.navigate("checkoutSuccess");
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        navigation.navigate("checkoutError", {
+          error: e,
+        });
+      });
+  };
 
   if (cart.length === 0 || !restaurant) {
     return (
@@ -35,6 +63,7 @@ export const CheckoutScreen = () => {
   return (
     <SafeAreaView>
       <RestaurantInfoCard restaurant={restaurant} />
+      {isLoading && <PaymentProcessing />}
       <ScrollView>
         <Spacer position="left" size="large">
           <Spacer position="top" size="large">
@@ -42,8 +71,13 @@ export const CheckoutScreen = () => {
           </Spacer>
 
           <List.Section>
-            {cart.map(({ item, price }) => {
-              return <List.Item title={`${item} - ${price / 100}`} />;
+            {cart.map(({ item, price }, i) => {
+              return (
+                <List.Item
+                  key={`item-${i}`}
+                  title={`${item} - ${price / 100}`}
+                />
+              );
             })}
           </List.Section>
           <Text>Total:{sum / 100}</Text>
@@ -56,12 +90,24 @@ export const CheckoutScreen = () => {
           }}
         />
         <Spacer position="top" size="large">
-          {name.length > 0 && <CreditCardInput name={name} />}
+          {name.length > 0 && (
+            <CreditCardInput
+              name={name}
+              onSuccess={setCard}
+              onError={() =>
+                navigation.navigate("checkoutError", {
+                  error: "Something went wrong processing your Card",
+                })
+              }
+            />
+          )}
         </Spacer>
         <Spacer position="top" size="xl" />
-        <PayButton icon="cash-usd">Pay</PayButton>
+        <PayButton disabled={isLoading} icon="cash-usd" onPress={onPay}>
+          Pay
+        </PayButton>
         <Spacer position="top" size="large">
-          <ClearButton icon="cart-off" onPress={clearCart}>
+          <ClearButton disabled={isLoading} icon="cart-off" onPress={clearCart}>
             Clear Cart
           </ClearButton>
         </Spacer>
