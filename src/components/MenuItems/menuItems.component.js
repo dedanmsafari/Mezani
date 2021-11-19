@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List } from "react-native-paper";
+import { List, Divider } from "react-native-paper";
 import { ScrollView } from "react-native";
 
 export const MenuItems = () => {
@@ -17,7 +17,7 @@ export const MenuItems = () => {
           <List.Item title="Toast Sandwitch" />
           <List.Item title="Milk and Cereals" />
         </List.Accordion>
-
+        <Divider />
         <List.Accordion
           title="Lunch"
           left={(props) => <List.Icon {...props} icon="food" />}
@@ -25,7 +25,7 @@ export const MenuItems = () => {
           <List.Item title="Rice and Beans" />
           <List.Item title="Orange Blend Juice" />
         </List.Accordion>
-
+        <Divider />
         <List.Accordion
           title="Dinner"
           left={(props) => <List.Icon {...props} icon="food-variant" />}
@@ -33,6 +33,7 @@ export const MenuItems = () => {
           <List.Item title="Brocolli and Spinatch" />
           <List.Item title="Chicken soup" />
         </List.Accordion>
+        <Divider />
         <List.Accordion
           title="Drinks"
           left={(props) => <List.Icon {...props} icon="glass-cocktail" />}
@@ -42,6 +43,7 @@ export const MenuItems = () => {
           <List.Item title="Fresh Mango Juice" />
           <List.Item title="Red Wine" />
         </List.Accordion>
+        <Divider />
       </List.Section>
     </ScrollView>
   );
